@@ -1,0 +1,24 @@
+# Per-app node_modules and build artifacts
+*/node_modules
+*/.next
+*/.vercel
+*/out
+*/build
+*/dist
+*/tsconfig.tsbuildinfo
+
+# Env files (each app keeps its own .env.example)
+*/.env
+*/.env.*
+!*/.env.example
+
+# Claude Code per-user local config (kept out of the repo)
+.claude/settings.local.json
+
+# OS / IDE
+.DS_Store
+.idea
+.vscode
+
+# Logs
+*.log
