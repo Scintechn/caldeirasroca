@@ -13,8 +13,12 @@ Why: per §1a of [`docs/landing-spec-direction.md`](../docs/landing-spec-directi
 
 ## What lives here (locally, never pushed)
 
-- `pitch/caldeirasroca-viana.md` — Viana do Castelo Roca-boiler page pitch.
-- `pitch/bricovitor.md` — BricoVitor parent multi-service brand pitch.
-- Add more as new prospects come in.
+- `pitch/<client>.md` — strategic pitch prep per prospect: validated facts, gaps, conversion mapping, scope guardrails, open questions. Built from §4a intake data. The doc you walk in *thinking about*.
+- `pitch/outreach-templates.md` — reusable WhatsApp / LinkedIn / email scripts for the *first message* that links the prospect to the live rebuild. The doc you copy-paste *from*.
+- Per-client outreach: the actual ready-to-send messages for that prospect live at the bottom of their `pitch/<client>.md`, populated with the §4a data and the live preview URLs.
+
+Conventions:
+- One strategy doc + one block of outreach scripts per prospect.
+- When two of your protótipos serve the same legal entity (e.g. BricoVitor parent + Caldeiras Roca Viana sub-site, both Tecnidom Lda), combine outreach into one message that references both — don't send twice.
 
 If you're cloning this repo on a new machine and these files aren't here, that's expected — they only ever existed on the original workstation.
