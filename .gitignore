@@ -15,10 +15,9 @@
 # Claude Code per-user local config (kept out of the repo)
 .claude/settings.local.json
 
-# Private pitch material — per-client sales prep, never pushed.
-# The folder's README is committed so the convention is visible in the repo.
-pitch/*
-!pitch/README.md
+# Private pitch material — per-client sales prep + outreach scripts.
+# Entire folder is local-only. Nothing in pitch/ ever reaches GitHub.
+pitch/
 
 # OS / IDE
 .DS_Store
