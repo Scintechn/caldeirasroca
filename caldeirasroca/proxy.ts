@@ -9,6 +9,7 @@ export function proxy(request: NextRequest) {
 
   if (
     pathname.startsWith("/_next") ||
+    pathname.startsWith("/_vercel") ||
     pathname.startsWith("/api") ||
     pathname === "/robots.txt" ||
     pathname === "/sitemap.xml" ||
@@ -28,5 +29,5 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!_next/|api/|.*\\.[\\w-]+$).*)"],
+  matcher: ["/((?!_next/|_vercel/|api/|.*\\.[\\w-]+$).*)"],
 };

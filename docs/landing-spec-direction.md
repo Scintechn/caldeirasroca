@@ -266,9 +266,13 @@ const PUBLIC_FILE = /\.[\w-]+$/;
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Skip internals, API routes, and anything that looks like a file
+  // Skip internals, API routes, and anything that looks like a file.
+  // `/_vercel/*` MUST be skipped — that's where Web Analytics serves its script
+  // and receives beacon POSTs. Letting the locale prefix attach to those paths
+  // breaks analytics silently (every event 308-redirected into /pt/_vercel/...).
   if (
     pathname.startsWith("/_next") ||
+    pathname.startsWith("/_vercel") ||
     pathname.startsWith("/api") ||
     pathname === "/robots.txt" ||
     pathname === "/sitemap.xml" ||
@@ -286,7 +290,7 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!_next/|api/|.*\\.[\\w-]+$).*)"],
+  matcher: ["/((?!_next/|_vercel/|api/|.*\\.[\\w-]+$).*)"],
 };
 ```
 
@@ -562,6 +566,8 @@ Once the business confirms the production domain, add it under Project Settings 
 6. **Form silently "works"** — placeholder `setTimeout(...).then(() => setStatus("success"))` looks like a working form to QA but drops every lead. Always wire the action before declaring a contact page done; test it from end to end (UI → server log → delivery channel).
 
 7. **Browser-extension hydration warnings** — extensions (ColorZilla, Grammarly, etc.) inject attributes into `<body>` after server HTML lands but before React hydrates. React warns about the mismatch. Reproduce in incognito before chasing it — it's almost never your code.
+
+8. **Locale proxy eating `/_vercel/` requests** — if `proxy.ts`'s skip list and matcher don't exclude `/_vercel/`, Web Analytics fails *silently*: `/_vercel/insights/script.js` 404s and every `/_vercel/insights/view` beacon gets 308-redirected to `/{defaultLocale}/_vercel/insights/view`. The dashboard stays stuck on "0 online / Get Started" even though `<Analytics />` is mounted and the package is installed. Skip `/_vercel/` in **both** the body check **and** the matcher negative lookahead. Separately: Web Analytics has to be turned on in the Vercel dashboard before any script is served — installing the package is not enough.
 
 ---
 
